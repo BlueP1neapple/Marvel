@@ -1,8 +1,7 @@
 package com.example.marvel.services;
 
 import com.example.marvel.dto.CharacterFullDto;
-import com.example.marvel.dto.ComicsFullDto;
-import com.example.marvel.models.Comics;
+import com.example.marvel.models.Characters;
 import com.example.marvel.repo.CharacterRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,17 @@ public class CharacterServices {
     ModelMapper modelMapper = new ModelMapper();
 
     public List<CharacterFullDto> characterFindAll(){
-        List<Character> characters = characterRepository.findAll();
+        List<Characters> characters = characterRepository.findAll();
 
         List<CharacterFullDto> characterDto = characters.stream().map(character -> modelMapper.map(character, CharacterFullDto.class)).collect(Collectors.toList());
 
         return characterDto;
     }
 
-    public Character characterInsert(Character character){ return characterRepository.save(character); }
+    public Characters characterAdd(Characters character){ return characterRepository.save(character); }
 
-    public Character characterFindByName(String id){
-        Optional<Character> character = characterRepository.findById(id);
+    public Characters characterFindByName(String id){
+        Optional<Characters> character = characterRepository.findById(id); // справить, рекурсию
         return character.get();
     }
 }

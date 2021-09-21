@@ -27,7 +27,7 @@ public class ComicsServices {
         return comicsDto;
     }
 
-    public Comics comicsInsert(Comics comics) {return comicsRepository.save(comics);}
+    public Comics comicsAdd(Comics comics) {return comicsRepository.save(comics);}
 
     public Comics comicsFindId(String id){
         Optional<Comics> comics = comicsRepository.findById(id);
