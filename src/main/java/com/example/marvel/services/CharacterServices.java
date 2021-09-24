@@ -1,12 +1,15 @@
 package com.example.marvel.services;
 
 import com.example.marvel.dto.CharacterFullDto;
+import com.example.marvel.dto.ComicsDto;
 import com.example.marvel.models.Characters;
+import com.example.marvel.models.Comics;
 import com.example.marvel.repo.CharacterRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,5 +34,13 @@ public class CharacterServices {
     public Characters characterFindByName(String id){
         Optional<Characters> character = characterRepository.findById(id); // справить, рекурсию
         return character.get();
+    }
+    public List<ComicsDto> comicsByCharacter(String name){
+        List<Comics> comics = characterFindByName(name).getComics();
+        List<ComicsDto> comicsDtos = new ArrayList<>();
+        for(Comics c: comics){
+            comicsDtos.add(modelMapper.map(c, ComicsDto.class));
+        }
+        return comicsDtos;
     }
 }

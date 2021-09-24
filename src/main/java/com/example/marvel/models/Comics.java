@@ -1,6 +1,7 @@
 package com.example.marvel.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Comics {
     private String name;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "character_presence",
             joinColumns = @JoinColumn(name = "character_id"),

@@ -1,8 +1,8 @@
 package com.example.marvel.controllers;
 
 import com.example.marvel.dto.CharacterFullDto;
+import com.example.marvel.dto.ComicsDto;
 import com.example.marvel.models.Characters;
-import com.example.marvel.models.Comics;
 import com.example.marvel.services.ActionServices;
 import com.example.marvel.services.CharacterServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,11 @@ public class CharacterController {
     @GetMapping("/{characterId}")
     public Characters characterFindByName(@PathVariable(value = "characterId") String name){
         return characterServices.characterFindByName(name);
+    }
+    @GetMapping("/{characterId}/comics")
+    public List<ComicsDto> comicsByCharacter(@PathVariable(value = "characterId") String name){
+        List<ComicsDto> list = characterServices.comicsByCharacter(name);
+        return list;
     }
     @PostMapping("/addToComics")
     public void characterToComics(@RequestParam(value = "character", required = false) String characterName,
