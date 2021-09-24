@@ -1,5 +1,6 @@
 package com.example.marvel.controllers;
 
+import com.example.marvel.dto.CharacterDto;
 import com.example.marvel.dto.ComicsFullDto;
 import com.example.marvel.models.Comics;
 import com.example.marvel.services.ComicsServices;
@@ -19,7 +20,12 @@ public class ComicsController {
     }
     @GetMapping("/{comicId}")
     public Comics comicsid(@PathVariable(value = "comicId") String id) throws Exception{
-        return comicsServices.comicsFindId(id);
+        return comicsServices.comicsFindName(id);
+    }
+    @GetMapping("/{comicId}/character")
+    public List<CharacterDto> CharacterByComics(@PathVariable(value = "comicId") String name){
+        List<CharacterDto> list = comicsServices.characterByComics(name);
+        return list;
     }
     @PostMapping("/add")
     public Comics comics(@RequestBody Comics comics){

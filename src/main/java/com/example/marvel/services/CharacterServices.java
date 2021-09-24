@@ -2,6 +2,7 @@ package com.example.marvel.services;
 
 import com.example.marvel.dto.CharacterFullDto;
 import com.example.marvel.dto.ComicsDto;
+import com.example.marvel.exeptions.ElementNotExist;
 import com.example.marvel.models.Characters;
 import com.example.marvel.models.Comics;
 import com.example.marvel.repo.CharacterRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,8 +34,8 @@ public class CharacterServices {
     public Characters characterAdd(Characters character){ return characterRepository.save(character); }
 
     public Characters characterFindByName(String id){
-        Optional<Characters> character = characterRepository.findById(id); // справить, рекурсию
-        return character.get();
+        return characterRepository.findById(id)
+                .orElseThrow(()-> new ElementNotExist(id));
     }
     public List<ComicsDto> comicsByCharacter(String name){
         List<Comics> comics = characterFindByName(name).getComics();
