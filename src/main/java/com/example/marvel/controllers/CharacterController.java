@@ -6,6 +6,7 @@ import com.example.marvel.models.Characters;
 import com.example.marvel.services.ActionServices;
 import com.example.marvel.services.CharacterServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,24 +18,29 @@ public class CharacterController {
     private CharacterServices characterServices;
     @Autowired
     private ActionServices actionServices;
+
     @GetMapping()
     public List<CharacterFullDto> character(){
         return characterServices.characterFindAll();
     }
     @GetMapping("/{characterId}")
+
     public Characters characterFindByName(@PathVariable(value = "characterId") String name){
         return characterServices.characterFindByName(name);
     }
+
     @GetMapping("/{characterId}/comics")
     public List<ComicsDto> comicsByCharacter(@PathVariable(value = "characterId") String name){
         List<ComicsDto> list = characterServices.comicsByCharacter(name);
         return list;
     }
+
     @PostMapping("/addToComics")
     public void characterToComics(@RequestParam(value = "character", required = false) String characterName,
                                   @RequestParam(value = "comics", required = false) String comicsName) throws Exception {
         actionServices.CharacterAddToComic(characterName, comicsName);
     }
+
     @PostMapping("/add")
     public Characters addCharacter(@RequestBody Characters characters){
         return characterServices.characterAdd(characters);

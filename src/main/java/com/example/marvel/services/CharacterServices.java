@@ -37,6 +37,7 @@ public class CharacterServices {
         return characterRepository.findById(id)
                 .orElseThrow(()-> new ElementNotExist(id));
     }
+
     public List<ComicsDto> comicsByCharacter(String name){
         List<Comics> comics = characterFindByName(name).getComics();
         List<ComicsDto> comicsDtos = new ArrayList<>();
